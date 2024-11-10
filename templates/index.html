@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Audio Converter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        /* تنسيق عام للصفحة */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+            animation: fadeIn 1s ease-in-out;
+            transition: background-color 0.5s ease-in-out;
+        }
+
+        /* تأثير ظهور الصفحة */
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* تغيير الخلفية بشكل ديناميكي عند التمرير */
+        body.scrolled {
+            background-color: #e0f7fa; /* خلفية خفيفة عند التمرير */
+        }
+
+        /* تنسيق للرأس */
+        header {
+            background: linear-gradient(45deg, #007BFF, #00C6FF); /* تدرج لوني */
+            color: white;
+            padding: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 26px;
+            font-weight: bold;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s ease-in-out;
+        }
+
+        /* المسافة من الجزء العلوي للمحتوى */
+        .main-content {
+            margin-top: 100px; /* لتجنب تغطية المحتوى بواسطة الرأس */
+            text-align: center;
+            width: 100%;
+            opacity: 0;
+            animation: fadeUp 1s ease-in-out forwards;
+        }
+
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333;
+            transition: color 0.3s ease-in-out;
+        }
+
+        h1:hover {
+            color: #007BFF;
+        }
+
+        /* تنسيق للنموذج */
+        form {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            width: 300px;
+            margin: 0 auto;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        @keyframes slideIn {
+            0% { transform: translateY(-50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        input[type="file"] {
+            font-size: 16px;
+            padding: 12px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            width: 100%;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input[type="file"]:hover {
+            border-color: #007BFF;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+        }
+
+        button {
+            padding: 12px 24px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        button:active {
+            background-color: #004494;
+        }
+
+        /* تنسيق للقسم الخاص بالتحميل */
+        #download-section {
+            margin-top: 30px;
+            text-align: center;
+            animation: fadeInSection 1s ease-in-out;
+        }
+
+        @keyframes fadeInSection {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        #download-link button {
+            background-color: #28a745;
+        }
+
+        #download-link button:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        #download-link button:active {
+            background-color: #1e7e34;
+        }
+
+        /* تأثير التمرير على النص */
+        h1, header {
+            transition: color 0.3s ease-in-out;
+        }
+
+        h1:hover, header:hover {
+            color: #007BFF;
+        }
+
+        /* تصميم متجاوب */
+        @media (max-width: 600px) {
+            form {
+                width: 90%;
+            }
+
+            header {
+                font-size: 22px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            button {
+                font-size: 14px;
+                padding: 10px 20px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- رأس الموقع -->
+    <header>
+        Text to Audio Converter
+    </header>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="main-content">
+        <h1>Convert Text to Audio</h1>
+    
+        <!-- نموذج لتحميل الملف -->
+        <form action="/convert_file_to_audio" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" accept=".txt">
+            <button type="submit">Convert to Audio</button>
+        </form>
+
+        <!-- زر لتحميل الملف الصوتي بعد التحويل -->
+        <div id="download-section" style="display:none;">
+            <a id="download-link" href="#" download>
+                <button>Download Audio File</button>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // للتفاعل مع Flask بعد تحويل الملف
+        const form = document.querySelector('form');
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const response = await fetch('/convert_file_to_audio', {
+                method: 'POST',
+                body: formData,
+            });
+            const result = await response.json();
+            
+            // إذا تم تحويل النص بنجاح، إظهار رابط التحميل
+            if (result.audio_file) {
+                const downloadLink = document.getElementById('download-link');
+                downloadLink.href = `/download/${result.audio_file}`;  // تأكد من أن الرابط يتضمن اسم الملف مع الامتداد الصحيح
+                document.getElementById('download-section').style.display = 'block';
+            } else {
+                alert(result.message);
+            }
+        };
+
+        // إضافة تغيير الخلفية عند التمرير
+        window.onscroll = () => {
+            if (window.scrollY > 50) {
+                document.body.classList.add('scrolled');
+            } else {
+                document.body.classList.remove('scrolled');
+            }
+        };
+    </script>
+</body>
+</html>

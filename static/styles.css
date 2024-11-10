@@ -1,0 +1,89 @@
+/* تخصيص جسم الصفحة */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* تنسيق الحاوية العامة */
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* العنوان */
+h1 {
+    text-align: center;
+    color: #4CAF50;
+}
+
+/* تنسيق النموذج */
+form {
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+}
+
+/* تخصيص الحقول النصية */
+input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* تخصيص الزرار */
+button {
+    background-color: #4CAF50; /* اللون الأخضر */
+    color: white; /* اللون الأبيض للنص */
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #45a049; /* تغيير اللون عند التمرير */
+}
+
+button:active {
+    background-color: #388e3c; /* اللون عند النقر */
+}
+
+/* تخصيص روابط التحميل */
+#downloadLink {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 18px;
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+#downloadLink:hover {
+    text-decoration: underline;
+}
+
+/* تخصيص العنوان داخل القسم */
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+h3 {
+    text-align: center;
+    color: #333;
+}
